@@ -44,7 +44,7 @@ function watermark() {
   var lp = Entity.GetLocalPlayer();
   var velocity = Math.round(getVelocity(lp));
   var velstr = velocity.toString();
-	var watermark_string = "aimsense | " + username;
+	var watermark_string = "Onetap | " + username;
 
   if(ping == 0) {
 		watermark_string += (" | " + datetime);
