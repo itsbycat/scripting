@@ -11,7 +11,6 @@
 */
 
 // ByCat#7797
-// Version 1.0.0
 
 UI.AddLabel("aimsense.ga/forums | ByCat#7797");
 
@@ -94,16 +93,16 @@ function keybinds() {
   if (UI.IsHotkeyActive("Anti-Aim", "Extra", "Fake duck")) {
     h.push("[Fake Duck]")
   }
-  if (UI.IsHotkeyActive("Misc", "General", "Movement", "Auto peek")) {
+  if (UI.IsHotkeyActive("Misc", "GENERAL", "Movement", "Auto peek")) {
     h.push("[Auto peek]")
   }
   if (UI.IsHotkeyActive("Anti-Aim", "Fake angles", "Inverter")) {
     h.push("[Anti-Aim invert]")
   }
-  if (UI.IsHotkeyActive("Rage", "General", "General", "Force safe point")) {
+  if (UI.IsHotkeyActive("Rage", "GENERAL", "General", "Force safe point")) {
     h.push("[Force safe point]")
   }
-  if (UI.IsHotkeyActive("Rage", "General", "Force body aim")) {
+  if (UI.IsHotkeyActive("Rage", "GENERAL", "Force body aim")) {
     h.push("[Force body aim]")
   }
   if (UI.IsHotkeyActive("Rage", "Exploits", "Doubletap")) {
@@ -164,7 +163,6 @@ function drawObservators(){
     if(UI.GetValue("Script items", "Speclist (Top Right)") == false) return;
 
 	var screen = Render.GetScreenSize();
-	var type = UI.GetValue("Script Items","type");
 	var font = Render.AddFont("Verdana",8,100);
 	for(i = 0; i < observators.length; i++){
 		var name = observators[i];
