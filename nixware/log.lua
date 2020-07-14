@@ -1,5 +1,4 @@
 -- ByCat#7797
--- Version 1.0.0
 
 local notify = client.notify
 

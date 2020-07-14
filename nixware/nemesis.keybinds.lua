@@ -1,5 +1,4 @@
 -- ByCat#7797
--- Version 1.0.0
 
 local font = surface.setup_font("Verdana", 12, 100, 0, 0, 0x200);
 local screensize = engine.get_screen_size()

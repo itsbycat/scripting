@@ -1,5 +1,4 @@
 -- ByCat#7797
--- Version 1.0.0
 
 ui.add_combo("buy_Primary", "i_primary", { "off", "Auto", "Scout", "AWP" }, 0)
 

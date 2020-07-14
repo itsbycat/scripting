@@ -11,7 +11,6 @@
 */
 
 // ByCat#7797
-// Version 1.0.0
 
 function HSVtoRGB(h, s, v) {
     var r, g, b, i, f, p, q, t;

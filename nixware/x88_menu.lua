@@ -1,5 +1,4 @@
 -- ByCat#7797
--- Version 1.0.0
 
 local font = surface.setup_font("Verdana", 13, 600, 0, 1, 0x200)
 

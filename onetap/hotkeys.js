@@ -11,7 +11,6 @@
 */
 
 // ByCat#7797
-// Version 1.0.0
 
  const keybinds_x = UI.AddSliderInt("keybinds_x", 0, Global.GetScreenSize()[0])
  const keybinds_y = UI.AddSliderInt("keybinds_y", 0, Global.GetScreenSize()[1])

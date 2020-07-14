@@ -11,7 +11,6 @@
 */
 
 // ByCat#7797
-// Version 1.0.0
 
 UI.AddLabel("aimsense.ga/forums | ByCat#7797");
 

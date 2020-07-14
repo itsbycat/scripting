@@ -1,5 +1,4 @@
 -- ByCat#7797
--- Version 1.0.0
 
 menu.add_check_box("Force crosshair")
 

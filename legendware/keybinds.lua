@@ -1,5 +1,4 @@
 -- ByCat#7797
--- Version 1.0.0
 
 menu.add_slider_int("X", 0, engine.get_screen_width())
 menu.add_slider_int("Y", 0, engine.get_screen_height())

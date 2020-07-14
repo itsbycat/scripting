@@ -1,5 +1,4 @@
 -- ByCat#7797
--- Version 1.0.0
 
 local font = render.create_font("Verdana", 13, 500, false, true, false)
 

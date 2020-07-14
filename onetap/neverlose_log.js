@@ -11,7 +11,6 @@
 */
 
 // ByCat#7797
-// Version 1.0.0
 
 const hitgroup = ['Head', 'Neck', 'Pelvis', 'Body', 'Thorax', 'Chest', 'Upper chest', 'Left thigh', 'Right thigh', 'Left calf', 'Right calf', 'Left foot', 'Right foot', 'Left hand', 'Right hand', 'Left upper arm', 'Left forearm', 'Right upper arm', 'Right forearm'];
 

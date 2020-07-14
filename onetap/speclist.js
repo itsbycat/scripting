@@ -11,7 +11,6 @@
 */
 
 // ByCat#7797
-// Version 1.0.0
 
 const speclist_x = UI.AddSliderInt("speclist_x", 0, Global.GetScreenSize()[0])
  const speclist_y = UI.AddSliderInt("speclist_y", 0, Global.GetScreenSize()[1])
