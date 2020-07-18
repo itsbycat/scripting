@@ -32,7 +32,7 @@ function watermark() {
     var tickrate = Global.Tickrate()
     var username = Cheat.GetUsername();
     var ip = World.GetServerString();
-	var watermark_string = "aimsense | " + username;
+	var watermark_string = "onetap | " + username; // aimsense better xD
 
     if(ping == 0) {
 		watermark_string += (" | " + datetime);
