@@ -14,7 +14,10 @@
 
 UI.AddLabel("aimsense.ga/forums | ByCat#7797");
 
+UI.AddCheckbox("Watermark");
 function watermark() {
+	if(UI.GetValue("Script items", "Watermark") == false) return;
+
 	var watermark_font = Render.AddFont("Verdana", 8, 250);
 	var screensize = Render.GetScreenSize();
 	
@@ -132,12 +135,10 @@ function keybinds() {
 Cheat.RegisterCallback("Draw", "keybinds");
 
 // Speclist
-UI.AddCheckbox("Speclist (Top Right)");
+UI.AddCheckbox("Speclist");
 var observators = [];
 
 function getObservators(){
-    if(UI.GetValue("Script items", "Speclist (Top Right)") == false) return;
-
 	var ents = Entity.GetPlayers();
 	var local = Entity.GetLocalPlayer();
 	var localtarget = Entity.GetProp(local,"DT_BasePlayer","m_hObserverTarget");
@@ -159,8 +160,8 @@ function getObservators(){
 	}
 }
 
-function drawObservators(){
-    if(UI.GetValue("Script items", "Speclist (Top Right)") == false) return;
+function drawObservators(){file:///C:/Users/ByCat/Downloads/otcJitter.js
+    if(UI.GetValue("Script items", "Speclist") == false) return;
 
 	var screen = Render.GetScreenSize();
 	var font = Render.AddFont("Verdana",8,100);
@@ -173,8 +174,6 @@ function drawObservators(){
 }
 
 function resetObservators(){
-    if(UI.GetValue("Script items", "Speclist (Top Right)") == false) return;
-
 	observators = [];
 }
 
