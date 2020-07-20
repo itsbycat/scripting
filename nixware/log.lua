@@ -76,7 +76,7 @@ end)
 --
 se.register_event("item_purchase")
 local function on_events(e)
-	if not ui.get_bool('logs_purchase') then
+	if not ui.get_bool('logs_purchases') then
         return
     end
 	
