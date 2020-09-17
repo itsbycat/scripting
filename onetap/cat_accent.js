@@ -50,6 +50,15 @@ function watermark() {
 }
 Cheat.RegisterCallback("Draw", "watermark");
 
+// bycat <3
+
+function in_bounds(vec, x, y, x2, y2)
+{
+   return (vec[0] > x) && (vec[1] > y) && (vec[0] < x2) && (vec[1] < y2)
+}
+
+var font = Render.AddFont("Verdana", 8, 250);
+
 // Keybinds
 
 const keybinds_x = UI.AddSliderInt("keybinds_x", 0, Global.GetScreenSize()[0])
@@ -62,21 +71,12 @@ function xy()
 }
 xy();
 
-function in_bounds(vec, x, y, x2, y2)
-{
-   return (vec[0] > x) && (vec[1] > y) && (vec[0] < x2) && (vec[1] < y2)
-}
-
 UI.AddCheckbox("Keybinds");
 function keybinds() {
   if(UI.GetValue("Script items", "Keybinds") == false) return;
 
-  var accent_keybinds = [255,255,255,255];
-
   const x = UI.GetValue("Misc", "JAVASCRIPT", "Script items", "keybinds_x"),
   y = UI.GetValue("Misc", "JAVASCRIPT", "Script items", "keybinds_y");
-
-  var keybinds_font = Render.AddFont("Verdana", 8, 250);
 
   if (Global.IsKeyPressed(1)) {
     const mouse_pos = Global.GetCursorPosition();
@@ -127,7 +127,7 @@ function keybinds() {
 
   Render.GradientRect(x - 1, y - 1, 212, 25 , 1,  rainbow, rainbow);
   Render.GradientRect(x, y, 210, 23, 1, [33, 33, 33, 100], [33, 33, 33, 255]);
-  Render.StringCustom(x + 105, y + 5, 5, "Keybinds", [255, 255, 255, 255], keybinds_font);
+  Render.StringCustom(x + 105, y + 5, 5, "Keybinds", [255, 255, 255, 255], font);
 
   Render.FilledRect(x, y + 25, 210, 20 + 15 * (h.length - 1), [33, 33, 33, 150]);
   for (i = 0; i < h.length; i++) { Render.String(x + 5, y + 30 + 15 * i, 0, h[i], [255, 255, 255, 255], 8); Render.String(x + 160, y + 30 + 15 * i, 0, "[active]", [255, 255, 255, 255], 8); }
@@ -136,6 +136,27 @@ Cheat.RegisterCallback("Draw", "keybinds");
 
 // Speclist
 UI.AddCheckbox("Speclist");
+
+const speclist_x = UI.AddSliderInt("speclist_x", 0, Global.GetScreenSize()[0])
+const speclist_y = UI.AddSliderInt("speclist_y", 0, Global.GetScreenSize()[1])
+
+function xy1()
+{
+  UI.SetEnabled("Misc", "JAVASCRIPT", "Script items", "speclist_x", false)
+  UI.SetEnabled("Misc", "JAVASCRIPT", "Script items", "speclist_y", false)
+}
+xy();
+
+if (Global.IsKeyPressed(1)) {
+    const mouse_pos1 = Global.GetCursorPosition();
+    if (in_bounds(mouse_pos1, x1, y1, x1 + 200, y1 + 30)) {
+     if (UI.IsMenuOpen( ) == false)
+       return;
+      UI.SetValue("Misc", "JAVASCRIPT", "Script items", "speclist_x", mouse_pos[0] - 100);
+      UI.SetValue("Misc", "JAVASCRIPT", "Script items", "speclist_y", mouse_pos[1] - 20);
+    }
+  }
+
 var observators = [];
 
 function getObservators(){
@@ -160,17 +181,30 @@ function getObservators(){
 	}
 }
 
-function drawObservators(){file:///C:/Users/ByCat/Downloads/otcJitter.js
+function drawObservators(){
     if(UI.GetValue("Script items", "Speclist") == false) return;
+
+    const rainbow = [
+        Math.floor(Math.sin(Global.Realtime() * 2) * 127 + 128),
+        Math.floor(Math.sin(Global.Realtime() * 2 + 2) * 127 + 128),
+        Math.floor(Math.sin(Global.Realtime() * 2 + 4) * 127 + 128),
+        200
+    ];
 
 	var screen = Render.GetScreenSize();
 	var font = Render.AddFont("Verdana",8,100);
 	for(i = 0; i < observators.length; i++){
 		var name = observators[i];
 		var size = Render.TextSizeCustom(name,font);
-		Render.StringCustom(screen[0]-size[0]-5,(i*20)+35,0,name,[255,255,255,255],font);
+		//Render.StringCustom(screen[0]-size[0]-5,(i*20)+35,0,name,[255,255,255,255],font);
+
+    Render.GradientRect(x - 1, y - 1, 212, 25 , 1,  rainbow, rainbow);
+    Render.GradientRect(x, y, 210, 23, 1, [33, 33, 33, 100], [33, 33, 33, 255]);
+    Render.StringCustom(x + 105, y + 5, 5, "Spectators (" +  observators.length + ")", [255, 255, 255, 255], font);
+
+    Render.FilledRect(x, y + 25, 210, 20 + 15 * (observators.length - 1), [33, 33, 33, 150]);
+    Render.String(x + 5, y + 30 + 15 * i, 0, observators.length[i], [255, 255, 255, 255], 8);
 	}
-	
 }
 
 function resetObservators(){
