@@ -1,6 +1,5 @@
-// ByCat#7797
-
-UI.AddMultiDropdown("Indicators", ["Name", "SLOW", "DT", "INVERT", "FD", "SP", "BAIM", "HS", "AUTO PEEK", "Triggerbot"]);
+// ByCat#7797 - Forum aimsense.pw
+UI.AddMultiDropdown("Indicators", ["FAKE", "SLOW", "DT", "INVERT", "FD", "HS", "SP", "BAIM", "AUTO PEEK", "Triggerbot"]);
 UI.AddCheckbox("Shadow");
 UI.AddCheckbox("Outline");
 UI.AddSliderInt("X", 0, 15)
@@ -12,12 +11,37 @@ function getDropdownValue(value, index) {
     return value & mask ? true : false;
 }
 
+function normalize_yaw(angle)
+{
+    var adjusted_yaw = angle;
+
+    if (adjusted_yaw < -180)
+        adjusted_yaw += 360;
+
+    if (adjusted_yaw > 180)
+        adjusted_yaw -= 360;
+
+    return adjusted_yaw;
+}
+
 function indicator() {
 	var items = (UI.GetValue("Script items", "Indicators")).toString(2).split("").reverse().map(Number);
 	const x = UI.GetValue("Script items", "X");
 	const y = UI.GetValue("Script items", "Y");
 	var dist = UI.GetValue("Script items", "Distance (recommended 45)");
 	var list = [];
+
+	const yaw = Local.GetRealYaw(), fake = Local.GetFakeYaw();
+    var delta = Math.round(normalize_yaw(yaw - fake) / 2), abs = Math.abs(delta);
+
+	if (items[0]) {
+		if (UI.GetValue("Anti-Aim", "Rage Anti-Aim", "Enabled") == true) {
+			list.push(0)
+		}
+		else if (UI.GetValue("Anti-Aim", "Legit Anti-Aim", "Enabled") == true) {
+			list.push(0)
+		}
+	}
 
 	if (items[1]) {
 		if (UI.IsHotkeyActive("Anti-Aim", "Extra", "Slow walk")) {
@@ -48,7 +72,7 @@ function indicator() {
 		}
 	}
 	if (items[6]) {
-		if (UI.IsHotkeyActive("Rage", "General", "General", "Safe point override")) {
+		if (UI.IsHotkeyActive("Rage", "GENERAL", "General", "Force safe point")) {
 			list.push(6)
 		}
 	}
@@ -58,7 +82,7 @@ function indicator() {
 		}
 	}
 	if (items[8]) {
-		if (UI.IsHotkeyActive("Misc", "General", "Movement", "Auto peek")) {
+		if (UI.IsHotkeyActive("Misc", "GENERAL", "Movement", "Auto peek")) {
 			list.push(8)
 		}
 	}
@@ -69,77 +93,91 @@ function indicator() {
 	}
 
 	for (index = 0; index < list.length; ++index) {
+		if(list[index] == 0) {
+			if (UI.GetValue("Script items", "Shadow") == true) {
+				Render.GradientRect( x - 10, (y + 4) - (index * dist), 20, 30, 1, [ 0, 0, 0, 0 ], [ 0, 0, 0, 180 ]);
+				Render.GradientRect( (x + 20) - 10, (y + 4) - (index * dist), 20, 30, 1, [ 0, 0, 0, 180 ], [ 0, 0, 0, 0 ]);
+			}
+			if (UI.GetValue("Script items", "Outline") == true) { Render.String( x - 1, (y + 1) - (index * dist), 0, "FAKE", [ 0, 0, 0, 180 ] , 4); }
+			Render.String( x, y - (index * dist), 0, "FAKE", [192 - (abs * 71 / 60), 32 + (abs * 146 / 60), 28, 200], 4);
+		}
 		if(list[index] == 1) {
 			if (UI.GetValue("Script items", "Shadow") == true) {
-				Render.GradientRect( x - 10, (y + 4) - (index * dist), 20, 30, 1, [ 0, 0, 0, 0 ], [ 0, 0, 0, 150 ]);
-				Render.GradientRect( (x + 20) - 10, (y + 4) - (index * dist), 20, 30, 1, [ 0, 0, 0, 150 ], [ 0, 0, 0, 0 ]);
+				Render.GradientRect( x - 10, (y + 4) - (index * dist), 20, 30, 1, [ 0, 0, 0, 0 ], [ 0, 0, 0, 180 ]);
+				Render.GradientRect( (x + 20) - 10, (y + 4) - (index * dist), 20, 30, 1, [ 0, 0, 0, 180 ], [ 0, 0, 0, 0 ]);
 			}
 			if (UI.GetValue("Script items", "Outline") == true) { Render.String( x - 1, (y + 1) - (index * dist), 0, "SLOW", [ 0, 0, 0, 180 ] , 4); }
-			Render.String( x, y - (index * dist), 0, "SLOW", [ 38, 255, 38, 255 ] , 4);
+			Render.String( x, y - (index * dist), 0, "SLOW", [ 255, 255, 255, 255 ] , 4);
 		}
 		if(list[index] == 2) {
 			if (UI.GetValue("Script items", "Shadow") == true) {
-				Render.GradientRect( x - 10, (y + 4) - (index * dist), 20, 30, 1, [ 0, 0, 0, 0 ], [ 0, 0, 0, 150 ]);
-				Render.GradientRect( (x + 20) - 10, (y + 4) - (index * dist), 20, 30, 1, [ 0, 0, 0, 150 ], [ 0, 0, 0, 0 ]);
+				Render.GradientRect( x - 10, (y + 4) - (index * dist), 20, 30, 1, [ 0, 0, 0, 0 ], [ 0, 0, 0, 180 ]);
+				Render.GradientRect( (x + 20) - 10, (y + 4) - (index * dist), 20, 30, 1, [ 0, 0, 0, 180 ], [ 0, 0, 0, 0 ]);
 			}
 			if (UI.GetValue("Script items", "Outline") == true) { Render.String( x - 1, (y + 1) - (index * dist), 0, "DT", [ 0, 0, 0, 180 ] , 4); }
-			Render.String( x, y - (index * dist), 0, "DT", [ 38, 255, 38, 255 ] , 4);
+			chargestate = Exploit.GetCharge()
+			if(chargestate == 1) {
+				Render.String( x, y - (index * dist), 0, "DT", [ 255, 255, 255, 255 ] , 4);
+			}
+			else {
+				Render.String( x, y - (index * dist), 0, "DT", [ 255, 0, 0, 255 ] , 4);
+			}
 		}
 		if(list[index] == 3) {
 			if (UI.GetValue("Script items", "Shadow") == true) {
-				Render.GradientRect( x - 10, (y + 4) - (index * dist), 20, 30, 1, [ 0, 0, 0, 0 ], [ 0, 0, 0, 150 ]);
-				Render.GradientRect( (x + 20) - 10, (y + 4) - (index * dist), 20, 30, 1, [ 0, 0, 0, 150 ], [ 0, 0, 0, 0 ]);
+				Render.GradientRect( x - 10, (y + 4) - (index * dist), 20, 30, 1, [ 0, 0, 0, 0 ], [ 0, 0, 0, 180 ]);
+				Render.GradientRect( (x + 20) - 10, (y + 4) - (index * dist), 20, 30, 1, [ 0, 0, 0, 180 ], [ 0, 0, 0, 0 ]);
 			}
 			if (UI.GetValue("Script items", "Outline") == true) { Render.String( x - 1, (y + 1) - (index * dist), 0, "Invert", [ 0, 0, 0, 180 ] , 4); }
-			Render.String( x, y - (index * dist), 0, "Invert", [ 38, 255, 38, 255 ] , 4);
+			Render.String( x, y - (index * dist), 0, "Invert", [ 255, 255, 255, 255 ] , 4);
 		}
 		if(list[index] == 4) {
 			if (UI.GetValue("Script items", "Shadow") == true) {
-				Render.GradientRect( x - 10, (y + 4) - (index * dist), 20, 30, 1, [ 0, 0, 0, 0 ], [ 0, 0, 0, 150 ]);
-				Render.GradientRect( (x + 20) - 10, (y + 4) - (index * dist), 20, 30, 1, [ 0, 0, 0, 150 ], [ 0, 0, 0, 0 ]);
+				Render.GradientRect( x - 10, (y + 4) - (index * dist), 20, 30, 1, [ 0, 0, 0, 0 ], [ 0, 0, 0, 180 ]);
+				Render.GradientRect( (x + 20) - 10, (y + 4) - (index * dist), 20, 30, 1, [ 0, 0, 0, 180 ], [ 0, 0, 0, 0 ]);
 			}
 			if (UI.GetValue("Script items", "Outline") == true) { Render.String( x - 1, (y + 1) - (index * dist), 0, "FD", [ 0, 0, 0, 180 ] , 4); }
-			Render.String( x, y - (index * dist), 0, "FD", [ 38, 255, 38, 255 ] , 4);
+			Render.String( x, y - (index * dist), 0, "FD", [ 255, 255, 255, 255 ] , 4);
 		}
 		if(list[index] == 5) {
 			if (UI.GetValue("Script items", "Shadow") == true) {
-				Render.GradientRect( x - 10, (y + 4) - (index * dist), 20, 30, 1, [ 0, 0, 0, 0 ], [ 0, 0, 0, 150 ]);
-				Render.GradientRect( (x + 20) - 10, (y + 4) - (index * dist), 20, 30, 1, [ 0, 0, 0, 150 ], [ 0, 0, 0, 0 ]);
+				Render.GradientRect( x - 10, (y + 4) - (index * dist), 20, 30, 1, [ 0, 0, 0, 0 ], [ 0, 0, 0, 180 ]);
+				Render.GradientRect( (x + 20) - 10, (y + 4) - (index * dist), 20, 30, 1, [ 0, 0, 0, 180 ], [ 0, 0, 0, 0 ]);
 			}
 			if (UI.GetValue("Script items", "Outline") == true) { Render.String( x - 1, (y + 1) - (index * dist), 0, "HS", [ 0, 0, 0, 180 ] , 4); }
-			Render.String( x, y - (index * dist), 0, "HS", [ 38, 255, 38, 255 ] , 4);
+			Render.String( x, y - (index * dist), 0, "HS", [ 255, 255, 255, 255 ] , 4);
 		}
 		if(list[index] == 6) {
 			if (UI.GetValue("Script items", "Shadow") == true) {
-				Render.GradientRect( x - 10, (y + 4) - (index * dist), 20, 30, 1, [ 0, 0, 0, 0 ], [ 0, 0, 0, 150 ]);
-				Render.GradientRect( (x + 20) - 10, (y + 4) - (index * dist), 20, 30, 1, [ 0, 0, 0, 150 ], [ 0, 0, 0, 0 ]);
+				Render.GradientRect( x - 10, (y + 4) - (index * dist), 20, 30, 1, [ 0, 0, 0, 0 ], [ 0, 0, 0, 180 ]);
+				Render.GradientRect( (x + 20) - 10, (y + 4) - (index * dist), 20, 30, 1, [ 0, 0, 0, 180 ], [ 0, 0, 0, 0 ]);
 			}
 			if (UI.GetValue("Script items", "Outline") == true) { Render.String( x - 1, (y + 1) - (index * dist), 0, "SP", [ 0, 0, 0, 180 ] , 4); }
-			Render.String( x, y - (index * dist), 0, "SP", [ 38, 255, 38, 255 ] , 4);
+			Render.String( x, y - (index * dist), 0, "SP", [ 255, 255, 255, 255 ] , 4);
 		}
 		if(list[index] == 7) {
 			if (UI.GetValue("Script items", "Shadow") == true) {
-				Render.GradientRect( x - 10, (y + 4) - (index * dist), 20, 30, 1, [ 0, 0, 0, 0 ], [ 0, 0, 0, 150 ]);
-				Render.GradientRect( (x + 20) - 10, (y + 4) - (index * dist), 20, 30, 1, [ 0, 0, 0, 150 ], [ 0, 0, 0, 0 ]);
+				Render.GradientRect( x - 10, (y + 4) - (index * dist), 20, 30, 1, [ 0, 0, 0, 0 ], [ 0, 0, 0, 180 ]);
+				Render.GradientRect( (x + 20) - 10, (y + 4) - (index * dist), 20, 30, 1, [ 0, 0, 0, 180 ], [ 0, 0, 0, 0 ]);
 			}
 			if (UI.GetValue("Script items", "Outline") == true) { Render.String( x - 1, (y + 1) - (index * dist), 0, "BAIM", [ 0, 0, 0, 180 ] , 4); }
-			Render.String( x, y - (index * dist), 0, "BAIM", [ 38, 255, 38, 255 ] , 4);
+			Render.String( x, y - (index * dist), 0, "BAIM", [ 255, 255, 255, 255 ] , 4);
 		}
 		if(list[index] == 8) {
 			if (UI.GetValue("Script items", "Shadow") == true) {
-				Render.GradientRect( x - 10, (y + 4) - (index * dist), 20, 30, 1, [ 0, 0, 0, 0 ], [ 0, 0, 0, 150 ]);
-				Render.GradientRect( (x + 20) - 10, (y + 4) - (index * dist), 20, 30, 1, [ 0, 0, 0, 150 ], [ 0, 0, 0, 0 ]);
+				Render.GradientRect( x - 10, (y + 4) - (index * dist), 20, 30, 1, [ 0, 0, 0, 0 ], [ 0, 0, 0, 180 ]);
+				Render.GradientRect( (x + 20) - 10, (y + 4) - (index * dist), 20, 30, 1, [ 0, 0, 0, 180 ], [ 0, 0, 0, 0 ]);
 			}
 			if (UI.GetValue("Script items", "Outline") == true) { Render.String( x - 1, (y + 1) - (index * dist), 0, "PEEK", [ 0, 0, 0, 180 ] , 4); }
-			Render.String( x, y - (index * dist), 0, "PEEK", [ 38, 255, 38, 255 ] , 4);
+			Render.String( x, y - (index * dist), 0, "PEEK", [ 255, 255, 255, 255 ] , 4);
 		}
 		if(list[index] == 9) {
 			if (UI.GetValue("Script items", "Shadow") == true) {
-				Render.GradientRect( x - 10, (y + 4) - (index * dist), 20, 30, 1, [ 0, 0, 0, 0 ], [ 0, 0, 0, 150 ]);
-				Render.GradientRect( (x + 20) - 10, (y + 4) - (index * dist), 20, 30, 1, [ 0, 0, 0, 150 ], [ 0, 0, 0, 0 ]);
+				Render.GradientRect( x - 10, (y + 4) - (index * dist), 20, 30, 1, [ 0, 0, 0, 0 ], [ 0, 0, 0, 180 ]);
+				Render.GradientRect( (x + 20) - 10, (y + 4) - (index * dist), 20, 30, 1, [ 0, 0, 0, 180 ], [ 0, 0, 0, 0 ]);
 			}
 			if (UI.GetValue("Script items", "Outline") == true) { Render.String( x - 1, (y + 1) - (index * dist), 0, "Trigger", [ 0, 0, 0, 180 ] , 4); }
-			Render.String( x, y - (index * dist), 0, "Trigger", [ 38, 255, 38, 255 ] , 4);
+			Render.String( x, y - (index * dist), 0, "Trigger", [ 255, 255, 255, 255 ] , 4);
 		}
 	}
 }
