@@ -1,0 +1,38 @@
+menu.add_check_box("Watermark enable")
+menu.add_color_picker("Watermark color")
+
+local fontnew = render.create_font("Segoe UI", 14, 400, true, false, false)
+
+local function on_paint()
+    if menu.get_bool("Watermark enable") then
+        local screen_width = engine.get_screen_width()
+        local fps = tostring(globals.get_framecount())
+        local ping = tostring(globals.get_ping())
+        local nickname = globals.get_username()
+        local curtime = globals.get_time()
+        local color_main = menu.get_color("Watermark color");
+        local color_gradient = menu.get_color("Watermark color");
+        local color_gradient2 = menu.get_color("Watermark color");
+        --   
+        local text
+        if ping ~= "0" then
+           text = tostring("legendware | " .. nickname .. " | " .. "delay: " .. ping .. " | " .. curtime)
+        else
+            text = tostring("legendware | " .. nickname .. " | " .. curtime)
+        end
+        local width = render.get_text_width(fontnew, text)
+        --
+        local bg_color = color.new(0, 0, 0, 120)
+        --
+        local x = screen_width - 10 - width - 4
+        local y = 10
+        local w = width + 5
+        render.draw_rect_filled_gradient(x, y, w, 16, color.new(0, 0, 0, 255), color.new(0, 0, 0, 0), 1)
+        render.draw_rect_filled_gradient(x, y, math.floor((w / 2) + 0.5), 2, color.new(0, 0, 0, 0), color_gradient2, 0)
+        render.draw_rect_filled_gradient(math.floor((x + w / 2) + 0.5), y, math.floor((w / 2) + 0.5), 2, color_gradient2, color.new(0, 0, 0, 0), 0)
+        render.draw_rect_filled(x, y + 2, w, 16, bg_color)
+        render.draw_text(fontnew, x + 2, y + 3, color.new(255, 255, 255), text)
+    end
+end
+
+client.add_callback("on_paint", on_paint)
