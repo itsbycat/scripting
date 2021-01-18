@@ -1,0 +1,87 @@
+-- ByCat#7797
+
+local function onRoundStart(event)
+    if menu.get_bool("Buy bot") then
+        -- Primary
+        if menu.get_int("Primary weapon") == 2 then
+            console.execute("buy awp;")
+        end
+        if menu.get_int("Primary weapon") == 1 then
+            console.execute("buy ak47;buy m4a1;")
+        end
+        if menu.get_int("Primary weapon") == 3 then
+            console.execute("buy galilar;buy famas;")
+        end
+        if menu.get_int("Primary weapon") == 4 then
+            console.execute("buy galilar;buy famas;")
+        end
+        if menu.get_int("Primary weapon") == 5 then
+            console.execute("buy g3sg1;buy scar20;")
+        end
+        if menu.get_int("Primary weapon") == 6 then
+            console.execute("buy ssg08;")
+        end
+        if menu.get_int("Primary weapon") == 7 then
+            console.execute("buy sg556;buy aug;")
+        end
+        if menu.get_int("Primary weapon") == 8 then
+            console.execute("buy mac10;buy mp9;")
+        end
+        if menu.get_int("Primary weapon") == 9 then
+            console.execute("buy mp5;buy mp7;")
+        end
+        if menu.get_int("Primary weapon") == 10 then
+            console.execute("buy p90;")
+        end
+        if menu.get_int("Primary weapon") == 11 then
+            console.execute("buy bizon;")
+        end
+        if menu.get_int("Primary weapon") == 12 then
+            console.execute("buy ump;")
+        end
+        if menu.get_int("Primary weapon") == 13 then
+            console.execute("buy m249;")
+        end
+        if menu.get_int("Primary weapon") == 14 then
+            console.execute("buy nova;")
+        end
+        if menu.get_int("Primary weapon") == 15 then
+            console.execute("buy negev;")
+        end
+        if menu.get_int("Primary weapon") == 16 then
+            console.execute("buy sawedoff;buy mag7;")
+        end
+        if menu.get_int("Primary weapon") == 17 then
+            console.execute("buy xm1014;")
+        end
+
+        -- Secondary
+        if menu.get_int("Secondary weapon") == 1 then
+            console.execute("buy fiveseven;buy tec9;")
+        end
+        if menu.get_int("Secondary weapon") == 2 then
+            console.execute("buy elite;")
+        end
+        if menu.get_int("Secondary weapon") == 3 then
+            console.execute("buy deagle; buy revolver;")
+        end
+        if menu.get_int("Secondary weapon") == 4 then
+            console.execute("buy glock; hkp2000;")
+        end
+        if menu.get_int("Secondary weapon") == 5 then
+            console.execute("buy p250;")
+        end
+
+        --Utilities
+        if menu.get_int("Utilities") == 1 then
+            console.execute("buy vest; buy vesthelm; buy taser 34; buy defuser; buy incgrenade; buy molotov; buy hegrenade; buy smokegrenade;")
+        end
+    end
+end
+events.register_event("round_start", onRoundStart)
+
+menu.add_check_box("Buy bot")
+menu.add_combo_box("Primary weapon", { "None", "AK47/N4A4/M4A1-S", "AWP", "GALIL/FAMAS", "G3SG1/SCAR20", "Scout", "SG553/AUG", "Mac10/MP9", "MP5/MP7", "P90", "PP-Bizon", "UMP", "M249", "Nova", "Negev", "Sawed off/MAG7", "XM1014" })
+menu.add_combo_box("Secondary weapon", { "None", "CZ-75/Tec-9/Five Seven", "Dual Berettas", "Desert Eagle/Revolver", "Glock/USP", "P250" })
+--menu.add_combo_box("Utilities", { "None", "Helmet", "Kevlar", "HE Grenade", "Molotov", "Smoke grenade", "Flashbang", "Decoy grenade", "Taser", "Defuse kit" })
+menu.add_combo_box("Utilities", { "None", "Helmet + Kevlar + Nade + Taser + Defuse kit" })
