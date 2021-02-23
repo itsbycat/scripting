@@ -1,32 +1,33 @@
 -- ByCat#7797
+-- Fixed
 
-ui.add_combo("buy_Primary", "i_primary", { "off", "Auto", "Scout", "AWP" }, 0)
+local i_primary = ui.add_combo_box("Primary", "i_primary", { "off", "Auto", "Scout", "AWP" }, 0)
 
-ui.add_combo("buy_Secondary", "i_secondary", { "off", "Deagle/R8", "Duals" }, 0)
+local i_secondary = ui.add_combo_box("Secondary", "i_secondary", { "off", "Deagle/R8", "Duals" }, 0)
 
-ui.add_checkbox("Other (Nade, Taser)", "buy_Other", true)
+local buy_Other = ui.add_check_box("Other (Nade, Taser)", "buy_Other", true)
 local function buy_bot(event)
    if event:get_name() == "round_start" then
-           if ui.get_int("i_primary") == 1 then
+           if i_primary:get_value() == 1 then
               engine.execute_client_cmd("buy scar20")
            end   
-           if ui.get_int("i_primary") == 2 then
+           if i_primary:get_value() == 2 then
               engine.execute_client_cmd("buy SSG08")
            end
-           if ui.get_int("i_primary") == 3 then
+           if i_primary:get_value() == 3 then
                engine.execute_client_cmd("buy awp")
            end 
 
            -- pistols
 
-           if ui.get_int("i_secondary") == 1 then
+           if i_secondary:get_value() == 1 then
               engine.execute_client_cmd("buy Deagle")
            end   
-           if ui.get_int("i_secondary") == 2 then
+           if i_secondary:get_value() == 2 then
               engine.execute_client_cmd("buy elite")
            end
           
-           if ui.get_bool("buy_Other") then
+           if buy_Other:get_value() then
                engine.execute_client_cmd("buy taser;buy vest; buy vesthelm; buy taser; buy defuser; buy hegrenade; buy smokegrenade; buy molotov;")
            end
     end               
