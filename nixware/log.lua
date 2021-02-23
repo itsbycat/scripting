@@ -1,11 +1,12 @@
 -- ByCat#7797
+-- Fixed
 
 local notify = client.notify
 
-ui.add_checkbox('show hits', 'logs_hits', false)
-ui.add_checkbox('show harms', 'logs_harms', false)
-ui.add_checkbox('show misses', 'logs_misses', false)
-ui.add_checkbox('show purchases', 'logs_purchases', false)
+local logs_hits = ui.add_check_box('show hits', 'logs_hits', false)
+local logs_harms = ui.add_check_box('show harms', 'logs_harms', false)
+local logs_misses = ui.add_check_box('show misses', 'logs_misses', false)
+local logs_purchases = ui.add_check_box('show purchases', 'logs_purchases', false)
 
 local hitboxes = {
     'generic',
@@ -43,7 +44,7 @@ client.register_callback('fire_game_event', function (event)
 
     
     if me == attacker and me ~= victim_index then
-        if not ui.get_bool('logs_hits') then
+        if not logs_hits:get_value() then
             return
         end
 
@@ -51,7 +52,7 @@ client.register_callback('fire_game_event', function (event)
 
         notify('hit ' .. pl.name .. ' for ' .. tostring(damage) .. ' in ' .. get_hitbox(hit + 1))
     elseif me ~= attacker and me == victim_index then
-        if not ui.get_bool('logs_harms') then
+        if not logs_harms:get_value() then
             return
         end
 
@@ -62,7 +63,7 @@ client.register_callback('fire_game_event', function (event)
 end)
 
 client.register_callback('shot_fired', function (shot)
-    if not ui.get_bool('logs_misses') then
+    if not logs_misses:get_value() then
         return
     end
 
@@ -76,7 +77,7 @@ end)
 --
 se.register_event("item_purchase")
 local function on_events(e)
-	if not ui.get_bool('logs_purchases') then
+	if not logs_purchases:get_value() then
         return
     end
 	
