@@ -1,0 +1,7 @@
+events.register_event("round_freeze_end", function()
+  menu.set_bool("anti_aim.enable", true)
+end)
+
+events.register_event("round_start", function()
+  menu.set_bool("anti_aim.enable", false)
+end)
