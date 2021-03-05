@@ -1,7 +1,9 @@
 events.register_event("round_freeze_end", function()
   menu.set_bool("anti_aim.enable", true)
+menu.set_bool("anti_aim.enable_fake_lag", true)
 end)
 
 events.register_event("round_start", function()
   menu.set_bool("anti_aim.enable", false)
+  menu.set_bool("anti_aim.enable_fake_lag", false)
 end)
