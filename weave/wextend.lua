@@ -48,6 +48,6 @@ callback.render(function()
     end
 end)
 
-callback.render(function()
+callback.unload(function()
     script.save_all("script_items_bycat")
 end)
