@@ -69,6 +69,7 @@ gui.Button(file_u, "Create", function()
 
     list_cfg:SetOptions(unpack(get_cfgs()))
 end)
+
 gui.Button(file_u, "Delete", function()
     parse = json.decode(themes_file)
 
@@ -99,6 +100,7 @@ gui.Button(config, "Save", function()
 
     file.Write("themes.txt", json.encode(parse))
 end)
+
 gui.Button(config, "Load", function()
     parse = json.decode(themes_file)
 
