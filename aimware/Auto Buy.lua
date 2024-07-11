@@ -66,7 +66,7 @@ local secondary_items = { "None", "Deagle", "Revolver", "Tec-9 / Five-7 / CZ-75"
 local equipment_list = { "Kevlar", "Helmet", "Defuser", "Taser", "HE", "Molotov", "Smoke", "Flashbang", "Decoy" }
 
 local console_cmds = {
-    { "buy scar20; buyg3sg1", "buy ssg08"; "buy awp" },
+    { "buy scar20; buy g3sg1", "buy ssg08"; "buy awp" },
     { "buy deagle", "buy revolver", "buy tec9; buy fiveseven; buy cz75a", "buy p250", "elite" },
     { "buy vest", "buy vesthelm", "buy defuser", "buy taser 34", "buy hegrenade", "buy molotov; buy incgrenade", "buy smokegrenade", "buy hegrenade", "buy flashbang", "buy decoy" }
 }
