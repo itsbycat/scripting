@@ -67,7 +67,7 @@ local equipment_list = { "Kevlar", "Helmet", "Defuser", "Taser", "HE", "Molotov"
 
 local console_cmds = {
     { "buy scar20; buy g3sg1", "buy ssg08"; "buy awp" },
-    { "buy deagle", "buy revolver", "buy tec9; buy fiveseven; buy cz75a", "buy p250", "elite" },
+    { "buy deagle", "buy revolver", "buy tec9; buy fiveseven; buy cz75a", "buy p250", "buy elite" },
     { "buy vest", "buy vesthelm", "buy defuser", "buy taser 34", "buy hegrenade", "buy molotov; buy incgrenade", "buy smokegrenade", "buy hegrenade", "buy flashbang", "buy decoy" }
 }
 
